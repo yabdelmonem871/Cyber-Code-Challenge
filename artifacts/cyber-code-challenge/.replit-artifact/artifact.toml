@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Cyber Code Challenge"
+description = "A fully Arabic RTL cyber-themed learning game for Egyptian Thanaweya Amma students, with a question bank based on Unit 1 of the official programming and artificial intelligence textbook, progressive stages, practice, statistics, and question-bank management."
+version = "1.0.0"
+id = "artifacts/cyber-code-challenge"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24936
+
+[services.development]
+run = "pnpm --filter @workspace/cyber-code-challenge run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cyber-code-challenge", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cyber-code-challenge/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24936"
+BASE_PATH = "/"
